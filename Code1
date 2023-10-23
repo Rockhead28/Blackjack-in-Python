@@ -29,6 +29,23 @@ cards = {
 player_hand = []
 dealer_hand = []
 
+#dealer card. represented with letter d in front
+dcard1 = random.choice (list(cards))
+dcard1v = cards.get(dcard1)
+dcard2 = random.choice (list(cards))
+dcard2v = cards.get(dcard2)
+dcard3 = random.choice (list(cards))
+dcard3v = cards.get(dcard3)
+dcard4 = random.choice (list(cards))
+dcard4v = cards.get(dcard4)
+dcard5 = random.choice (list(cards))
+dcard5v = cards.get(dcard5)
+
+#add card number into dealer_hand
+dealer_hand = dcard1v + dcard2v
+
+
+#player card
 #cards.get >> .get is used to obtain the values of the key in dictionary.
 #card with v is the integar value that was converted. Previous method of .get and .append to list ends up being a string. Or maybe I was wrong somewhere earlier. Error msg is TypeError: 'int' object is not iterable.
 card1 = random.choice (list(cards))
@@ -54,38 +71,51 @@ if player_hand == 21:
 else:
     first_input = input ("Would you still like to Play or Pass?").lower()
     if first_input == "pass":
-        print ("End Game")
+        print (f"Your total card number is {player_hand}")
     elif first_input == "play":
         player_hand += card3v
         print (f"Your third card is {card3}. Total card number is {player_hand}")
+            #4th card for player
+        if player_hand == 21:
+            print ("Congrats! You have a blackjack!")
+        elif player_hand < 21:
+            second_input = input ("Would you still like to Play or Pass?").lower()
+            if second_input == "pass":
+                print (f"Your total card number is {player_hand}")
+            elif second_input == "play":
+                player_hand += card4v
+                print (f"Your fourth card is {card4}. Total card number is {player_hand}")
+            #5th card for player
+                if player_hand == 21:
+                    print ("Congrats! You have a blackjack!")
+                else:
+                    third_input = input ("Would you still like to Play or Pass?").lower()
+                    if third_input == "pass":
+                        print (f"Your total card number is {player_hand}")
+                    elif third_input == "play":
+                        player_hand += card5v
+                        print (f"Your third card is {card5}. Total card number is {player_hand}")
+                    else:
+                        print ("Your input is not valid. Please key in 'Play' or 'Pass'")
+            else:
+                print ("Your input is not valid. Please key in 'Play' or 'Pass'")
+        else:
+            print ("You've burst.")
     else:
         print ("Your input is not valid. Please key in 'Play' or 'Pass'")
 
 
-#4th card for player
-if player_hand == 21:
-    print ("Congrats! You have a blackjack!")
+#draw dealer hand
+print (f"Dealer first two card is {dcard1} and {dcard2}. Total dealer's card number is {dealer_hand}")
+
+
+
+
+#final calculation comparison of both hands
+if (player_hand <= 21) and (player_hand > dealer_hand):
+    print ("Player Win!")
 else:
-    second_input = input ("Would you still like to Play or Pass?").lower()
-    if second_input == "pass":
-        print ("End Game")
-    elif second_input == "play":
-        player_hand += card4v
-        print (f"Your third card is {card4}. Total card number is {player_hand}")
-    else:
-        print ("Your input is not valid. Please key in 'Play' or 'Pass'")
+    print ("Dealer Win!")
 
 
-#5th card for player
-if player_hand == 21:
-    print ("Congrats! You have a blackjack!")
-else:
-    third_input = input ("Would you still like to Play or Pass?").lower()
-    if third_input == "pass":
-        print ("End Game")
-    elif third_input == "play":
-        player_hand += card5v
-        print (f"Your third card is {card5}. Total card number is {player_hand}")
-    else:
-        print ("Your input is not valid. Please key in 'Play' or 'Pass'")
-        
+
