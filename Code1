@@ -35,12 +35,7 @@ dcard1 = random.choice (list(cards))
 dcard1v = cards.get(dcard1)
 dcard2 = random.choice (list(cards))
 dcard2v = cards.get(dcard2)
-dcard3 = random.choice (list(cards))
-dcard3v = cards.get(dcard3)
-dcard4 = random.choice (list(cards))
-dcard4v = cards.get(dcard4)
-dcard5 = random.choice (list(cards))
-dcard5v = cards.get(dcard5)
+
 
 #add card number into dealer_hand
 dealer_hand = dcard1v + dcard2v
@@ -67,13 +62,6 @@ player_hand = card1v + card2v
 input_question = ("Would you still like to Play or Pass?")
 
 print (f"Your first two card is {card1} and {card2}. Total card number is {player_hand}")
-
-
-
-
-
-
-
 
 #3rd card for player
 if player_hand == 21:
@@ -123,10 +111,6 @@ else:
         print ("Your input is not valid. Please key in 'Play' or 'Pass'")
 
 
-
-
-
-
 #draw dealer hand
 print (f"Dealer first two card is {dcard1} and {dcard2}")
 
@@ -134,9 +118,11 @@ print (f"Dealer first two card is {dcard1} and {dcard2}")
 r = 0
 while r<3:
     while dealer_hand < 18:
-        dealer_hand += cards.get(random.choice (list(cards)))
+        draw_card_face = random.choice (list(cards))
+        draw_card_value = cards.get(draw_card_face)
+        dealer_hand += draw_card_value
         r+=1
-        print (f"Dealer's next card is number is {random.choice (list(cards))}")
+        print (f"Dealer's next card is number is {draw_card_face}")
     break
 print (f"Dealer's total card number is {dealer_hand}")
 
