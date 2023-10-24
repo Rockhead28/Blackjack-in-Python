@@ -30,6 +30,7 @@ player_hand = []
 dealer_hand = []
 
 #dealer card. represented with letter d in front
+#might not need this category
 dcard1 = random.choice (list(cards))
 dcard1v = cards.get(dcard1)
 dcard2 = random.choice (list(cards))
@@ -62,14 +63,25 @@ card5v = cards.get(card5)
 #add card number into player_hand
 player_hand = card1v + card2v
 
+#short list variables
+input_question = ("Would you still like to Play or Pass?")
 
 print (f"Your first two card is {card1} and {card2}. Total card number is {player_hand}")
+
+
+
+
+
+
+
 
 #3rd card for player
 if player_hand == 21:
     print ("Congrats! You have a blackjack!")
-else:
-    first_input = input ("Would you still like to Play or Pass?").lower()
+elif player_hand > 21:
+    print ("You've burst!")
+elif player_hand < 21:
+    first_input = input (input_question).lower()
     if first_input == "pass":
         print (f"Your total card number is {player_hand}")
     elif first_input == "play":
@@ -78,8 +90,10 @@ else:
             #4th card for player
         if player_hand == 21:
             print ("Congrats! You have a blackjack!")
+        elif player_hand > 21:
+            print ("You've burst!")
         elif player_hand < 21:
-            second_input = input ("Would you still like to Play or Pass?").lower()
+            second_input = input (input_question).lower()
             if second_input == "pass":
                 print (f"Your total card number is {player_hand}")
             elif second_input == "play":
@@ -88,8 +102,10 @@ else:
             #5th card for player
                 if player_hand == 21:
                     print ("Congrats! You have a blackjack!")
-                else:
-                    third_input = input ("Would you still like to Play or Pass?").lower()
+                elif player_hand > 21:
+                    print ("You've burst!")
+                elif player_hand <21: 
+                    third_input = input (input_question).lower()
                     if third_input == "pass":
                         print (f"Your total card number is {player_hand}")
                     elif third_input == "play":
@@ -100,22 +116,40 @@ else:
             else:
                 print ("Your input is not valid. Please key in 'Play' or 'Pass'")
         else:
-            print ("You've burst.")
+            print ("Your input is not valid. Please key in 'Play' or 'Pass'")
     else:
+        print ("Your input is not valid. Please key in 'Play' or 'Pass'")
+else:
         print ("Your input is not valid. Please key in 'Play' or 'Pass'")
 
 
+
+
+
+
 #draw dealer hand
-print (f"Dealer first two card is {dcard1} and {dcard2}. Total dealer's card number is {dealer_hand}")
+print (f"Dealer first two card is {dcard1} and {dcard2}")
 
-
-
+#r is to control number of cards dealer can draw
+r = 0
+while r<3:
+    while dealer_hand < 18:
+        dealer_hand += cards.get(random.choice (list(cards)))
+        r+=1
+        print (f"Dealer's next card is number is {random.choice (list(cards))}")
+    break
+print (f"Dealer's total card number is {dealer_hand}")
 
 #final calculation comparison of both hands
-if (player_hand <= 21) and (player_hand > dealer_hand):
+if (player_hand <= 21) and (player_hand >= dealer_hand):
     print ("Player Win!")
+elif (player_hand <= 21) and (player_hand == dealer_hand):
+    print ("It's a Draw!")
+elif (player_hand > 21) and (dealer_hand > 21):
+    print ("Dealer also burst! It's a Draw!")
+elif (player_hand <= 21) and (dealer_hand > 21):
+    print ("Player Win!")
+elif (dealer_hand <= 21) and (player_hand <= dealer_hand):
+    print ("Dealer Win!")
 else:
     print ("Dealer Win!")
-
-
-
