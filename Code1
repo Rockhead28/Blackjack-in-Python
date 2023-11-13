@@ -75,8 +75,9 @@ while True:
       print ("Congrats! You have a blackjack!")
       break
   elif player_hand > 21:
-      print ("You've burst1!")
+      print ("You've burst!")
       break
+  #3rd card for player
   else:
       first_input = input (input_question).lower()
       if first_input == "pass":
@@ -84,12 +85,16 @@ while True:
           break
       elif first_input == "play":
           player_hand += card3v
+          #tried changing aces to value 1, but it didnt work here.
+          cards ["Aces"] = 1
           print (f"Your third card is {card3}. Total card number is {player_hand}")
-              #4th card for player
           if player_hand == 21:
               print ("Congrats! You have a blackjack!")
+              break
           elif player_hand > 21:
-              print ("You've burst2!")
+              print ("You've burst!")
+              break
+          #4th card for player
           else:
               second_input = input (input_question).lower()
               if second_input == "pass":
@@ -98,11 +103,13 @@ while True:
               elif second_input == "play":
                   player_hand += card4v
                   print (f"Your fourth card is {card4}. Total card number is {player_hand}")
-              #5th card for player
                   if player_hand == 21:
                       print ("Congrats! You have a blackjack!")
+                      break
                   elif player_hand > 21:
-                      print ("You've burst3!")
+                      print ("You've burst!")
+                      break
+                  #5th card for player
                   else: 
                       third_input = input (input_question).lower()
                       if third_input == "pass":
@@ -110,34 +117,43 @@ while True:
                           break
                       elif third_input == "play":
                           player_hand += card5v
-                          print (f"Your third card is {card5}. Total card number is {player_hand}")
-
+                          print (f"Your fifth card is {card5}. Total card number is {player_hand}")
+                          break
+                          if player_hand == 21:
+                            print ("Congrats! You have a blackjack!")
+                            break
+                          elif player_hand > 21:
+                            print ("You've burst!")
+                            break
 
 
 #draw dealer hand
 print (f"Dealer first two card is {dcard1} and {dcard2}")
 
 #r is to control number of cards dealer can draw
+#only limit to 3 as dealer already have 2 cards
+#need improvement, right now the dealer cards will still draw even after 3 iteration.
+#may need additional loops
 r = 0
-while r<3:
-    while dealer_hand < 18:
-        draw_card_face = random.choice (list(cards))
-        draw_card_value = cards.get(draw_card_face)
-        dealer_hand += draw_card_value
-        r+=1
-        print (f"Dealer's next card is number is {draw_card_face}")
-    break
+while r<3 and dealer_hand <18:
+  draw_card_face = random.choice (list(cards))
+  draw_card_value = cards.get(draw_card_face)
+  dealer_hand += draw_card_value
+  r+=1
+  print (f"Dealer's next card is number is {draw_card_face}")
 print (f"Dealer's total card number is {dealer_hand}")
 
 #final calculation comparison of both hands
-if (player_hand <= 21) and (player_hand >= dealer_hand):
+if (player_hand <= 21) and (player_hand > dealer_hand):
     print ("Player Win!")
-elif (player_hand <= 21) and (player_hand == dealer_hand):
+elif (player_hand <= 21) and (dealer_hand > 21):
+    print ("Player Win!")
+elif (player_hand == 21) and (dealer_hand == 21):
+    print ("Player Win!")
+elif (player_hand < 21) and (player_hand == dealer_hand):
     print ("It's a Draw!")
 elif (player_hand > 21) and (dealer_hand > 21):
     print ("Dealer also burst! It's a Draw!")
-elif (player_hand <= 21) and (dealer_hand > 21):
-    print ("Player Win!")
 elif (dealer_hand <= 21) and (player_hand <= dealer_hand):
     print ("Dealer Win!")
 else:
