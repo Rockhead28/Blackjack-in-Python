@@ -14,17 +14,7 @@ start = input("Welcome to Ivan's Blackjack!. Hit [Enter] to Start Playing:")
 cards = {
     "Aces": 11, 
     "2": 2, 
-    "3": 3, 
-    "4": 4,
-    "5": 5,
-    "6": 6,
-    "7": 7,
-    "8": 8,
-    "9": 9,
-    "10": 10,
-    "Jack": 10,
-    "Queen": 10,
-    "King": 10
+
     }
     
 player_hand = []
@@ -85,8 +75,6 @@ while True:
           break
       elif first_input == "play":
           player_hand += card3v
-          #tried changing aces to value 1, but it didnt work here.
-          cards ["Aces"] = 1
           print (f"Your third card is {card3}. Total card number is {player_hand}")
           if player_hand == 21:
               print ("Congrats! You have a blackjack!")
@@ -130,17 +118,22 @@ while True:
 #draw dealer hand
 print (f"Dealer first two card is {dcard1} and {dcard2}")
 
+#dealer card count. change Aces from 11 to 1
+dcc = 2
+
+
 #r is to control number of cards dealer can draw
 #only limit to 3 as dealer already have 2 cards
-#need improvement, right now the dealer cards will still draw even after 3 iteration.
-#may need additional loops
 r = 0
 while r<3 and dealer_hand <18:
   draw_card_face = random.choice (list(cards))
   draw_card_value = cards.get(draw_card_face)
   dealer_hand += draw_card_value
-  r+=1
   print (f"Dealer's next card is number is {draw_card_face}")
+  r+=1
+  dcc+=1
+  if dcc >= 3:
+    cards ["Aces"] = 1
 print (f"Dealer's total card number is {dealer_hand}")
 
 #final calculation comparison of both hands
