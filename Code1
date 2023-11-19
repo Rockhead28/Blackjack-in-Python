@@ -12,9 +12,9 @@ import random
 start = input("Welcome to Ivan's Blackjack!. Hit [Enter] to Start Playing:")
 
 cards = {
-    "Aces": 1, 
-    "Two": 1, 
-    "three": 3, 
+    "Aces": 11, 
+    "Two": 6, 
+    "three": 5, 
     
   
 
@@ -64,7 +64,7 @@ p = 0
 while p<3:
     if sum(player_hand) == 21:
         print ("Congrats! You have a blackjack!")
-        break
+        break    
     elif sum(player_hand) <21:
         input_ans = input (input_question).lower()
         if input_ans == "pass":
@@ -73,19 +73,23 @@ while p<3:
         elif input_ans == "play":
             cardvalue = random.choice (list(cards))
             player_hand.append (cards [cardvalue])
-            #change Aces to 1 on the 3rd card onwards
-            for playeraces in range (len(player_hand)):
-                if player_hand [playeraces] == 1:
-                    player_hand [playeraces] = 5
+
+            if sum(player_hand) > 21 and cardvalue == 11:
+                for playeraces in range (len(player_hand)):
+                    if player_hand [playeraces] == 11:
+                        player_hand [playeraces] = 1
+
             p+=1
             print (player_hand)
-            print (f"Your third card is {cardvalue}. Total card number is {sum(player_hand)}")
+            print (f"Your next card is {cardvalue}. Total card number is {sum(player_hand)}")
             continue
         else:
             print ("Your input is not valid. Please type Play or Pass")
     else:
         print ("You've burst!")
         break
+
+
 
 print (player_hand)
 
