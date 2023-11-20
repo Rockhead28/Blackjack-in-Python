@@ -43,9 +43,6 @@ dcard2v = cards.get(dcard2)
 dealer_hand.append (dcard1v)
 dealer_hand.append (dcard2v)
 
-#perhaps change both player and dealer hand into a list
-#if either hand have >3 cards, A = 1
-
 
 #player card
 #cards.get >> .get is used to obtain the values of the key in dictionary.
@@ -91,8 +88,8 @@ while p<3:
         elif input_ans == "play":
             cardvalue = random.choice (list(cards))
             player_hand.append (cards [cardvalue])
-
-            if sum(player_hand) > 21:
+            #change Aces from 11 to 1
+						if sum(player_hand) > 21:
                 for playeraces in range (len(player_hand)):
                     if player_hand [playeraces] == 11:
                         player_hand [playeraces] = 1
@@ -112,10 +109,6 @@ print (player_hand)
 print (f"Dealer first two card is {dcard1} and {dcard2}")
 
 
-#dealer card count. change Aces from 11 to 1 if more than 2 cards
-dcc = 2
-
-
 #r is to control number of cards dealer can draw
 #only limit to 3 as dealer already have 2 cards
 r = 0
@@ -128,9 +121,7 @@ while r<3 and sum(dealer_hand) <18:
               dealer_hand [dealeraces] = 1
   print (f"Dealer's next card is number is {draw_card_value}")
   r+=1
-  dcc+=1
-  #if dcc >= 3:
-    #cards ["Aces"] = 1
+  
 print (f"Dealer's total card number is {sum(dealer_hand)}")
 
 print (dealer_hand)
