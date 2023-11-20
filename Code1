@@ -3,7 +3,8 @@
 #start with player, then followed by dealer
 #if player have card score below 21, have option to draw another card or can opt to stop. Up to a maximum of 5 cards
 #winner must have higher score than the other user, and must be below 21 points. No minimum score
-#Aces start with 11 points. 3rd card onwards Aces will automatically convert to 1 points.
+#Aces start with 11 points. If total deck above 21 points, all Aces will automatically convert to 1 points.
+#if first 2 card is Aces, one will be 10 points and another at 11 points. blackjack given
 #J,Q,K is 10
 
 
@@ -13,11 +14,18 @@ start = input("Welcome to Ivan's Blackjack!. Hit [Enter] to Start Playing:")
 
 cards = {
     "Aces": 11, 
-    "Two": 6, 
-    "three": 5, 
-    
-  
-
+    "2": 2, 
+    "3": 3, 
+    "4": 4,
+    "5": 5,
+    "6": 6,
+    "7": 7,
+    "8": 8,
+    "9": 9,
+    "10": 10,
+    "Jack": 10,
+    "Queen": 10,
+    "King": 10
     }
 
 player_hand = []
@@ -52,6 +60,13 @@ card2v = cards.get(card2)
 player_hand.append (card1v)
 player_hand.append (card2v)
 
+#to account double Aces dealing on first hand
+if len(player_hand) == 2 and sum(player_hand) == 22:
+    player_hand [0] = 10
+    
+if len(dealer_hand) == 2 and sum(dealer_hand) == 22:
+    dealer_hand [0] = 10
+
 #short list variables
 input_question = ("Would you still like to Play or Pass?")
 
@@ -64,7 +79,10 @@ p = 0
 while p<3:
     if sum(player_hand) == 21:
         print ("Congrats! You have a blackjack!")
-        break    
+        break
+    elif sum(player_hand) > 21:
+        print ("You've burst!")
+        break
     elif sum(player_hand) <21:
         input_ans = input (input_question).lower()
         if input_ans == "pass":
@@ -74,11 +92,10 @@ while p<3:
             cardvalue = random.choice (list(cards))
             player_hand.append (cards [cardvalue])
 
-            if sum(player_hand) > 21 and cardvalue == 11:
+            if sum(player_hand) > 21:
                 for playeraces in range (len(player_hand)):
                     if player_hand [playeraces] == 11:
                         player_hand [playeraces] = 1
-
             p+=1
             print (player_hand)
             print (f"Your next card is {cardvalue}. Total card number is {sum(player_hand)}")
@@ -88,8 +105,6 @@ while p<3:
     else:
         print ("You've burst!")
         break
-
-
 
 print (player_hand)
 
@@ -107,6 +122,10 @@ r = 0
 while r<3 and sum(dealer_hand) <18:
   draw_card_value = random.choice (list(cards))
   dealer_hand.append (cards [draw_card_value])
+  if sum(dealer_hand) > 21:
+      for dealeraces in range (len(dealer_hand)):
+          if dealer_hand [dealeraces] == 11:
+              dealer_hand [dealeraces] = 1
   print (f"Dealer's next card is number is {draw_card_value}")
   r+=1
   dcc+=1
